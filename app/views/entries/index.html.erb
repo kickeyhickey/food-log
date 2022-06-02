@@ -1,4 +1,6 @@
-<h1> hello world</h1>
+<% content_for :title do %>
+    Foodlog &ndash; <%= DateTime.now %>
+<% end %>
 
 <table>
     <thead>
@@ -19,6 +21,10 @@
     <td><%= entry.calories %></td>
     <td><%= entry.proteins %></td>
     <td><%= entry.carbohydrates %></td>
+    <td><%= link_to 'Show', entry %></td>
+    <td><%= link_to 'Edit', edit_entry_path(entry)%></td>
+    <td><%= button_to "Destroy", entry, form: { data: { turbo_confirm: "Are you sure?" } }, method: :delete %>
+ </td>
     </tr>
     <% end %>
 
