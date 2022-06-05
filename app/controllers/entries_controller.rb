@@ -12,14 +12,33 @@ class EntriesController < ApplicationController
 
     def create
         @entry = Entry.new(entry_params)
+
+        respond_to do |format|
+            if @entry.save
+                format.html { redirect_to @entry, notice: 'Entry was succesfully created.'}
+                format.json { render :show, status: :created, location: @entry }
+            else
+                format.html { render :new }
+                format.json { render json: @entry.errors, status: :unprocessable_entity }
+            end
+        end
     end
 
     def edit
-        @entry = Entry.find(params[:id])
-
-        
-
     end
+
+    def update
+        respond_to do |format|
+            if @entry.update(entry_params)
+                format.html { redirect_to @entry, notice: 'Entry was successfully updated.'}
+                format.json { render :show, status: :ok, location: @entry }
+            else
+                format.html { render :edit }
+                format.json { render json: @entry.errors, status: :unprocessable_entity }
+            end
+        end
+    end
+
 
     private
 
